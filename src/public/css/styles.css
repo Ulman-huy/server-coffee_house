@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Pacifico&display=swap');
+:root {
+    --primary-color: #212529;
+    --white-color: #f8f8f8;
+    --border-color: #cccccc;
+}
+.body {
+    min-height: 100vh;
+    width: 100%;
+}
+.header-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: 2px solid #fff;
+}
+.logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 20px;
+    color: #fff;
+    padding: 4px 24px;
+    text-decoration: none;
+}
+.login {
+}
+svg {
+    fill: currentColor;
+}
+.nav-icon-bell {
+    cursor: pointer;
+}
+.container-page {
+    display: flex;
+    height: calc(100vh - 54px);
+    padding-top: 2px;
+}   
+.menu {
+    width: 250px;
+    height: 100%;
+    background-color: #212529;
+    padding-top: 2px;
+}
+.content {
+    flex: 1;
+}
+.menu-item {
+    cursor: pointer;
+}
+.menu-item__link {
+    display: block;
+    padding: 10px 0 10px 24px;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: 16px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    position: relative;
+}
+.menu-item__link span { 
+    margin-inline-end: 4px;
+}
+.menu-item__link:hover {
+    padding-left: 27px;
+}
+.icon-down{
+    position: absolute;
+    right: 12px;
+    transition: all .25s ease-in;
+}
+.icon-down.rotate{
+    transform: rotate(180deg);
+    transition: all .25s ease-in;
+}
+.menu_dropdown {
+    display: none;
+    transition: all 0.25s ease;
+}
+.menu_dropdown.show {
+    display: block;
+    animation: animate 0.3s ease forwards;
+}
+.menu_dropdown-item {
+    display: block;
+    text-decoration: none;
+    color: var(--white-color);
+    padding: 6px 40px;
+    transition: all 0.25s ease;
+}
+.menu_dropdown-item:hover {
+   padding-left: 44px;
+} 
+@keyframes animate {
+    from { 
+        transform: translateY(-12px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
