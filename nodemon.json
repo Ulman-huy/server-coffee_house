@@ -1,0 +1,8 @@
+{
+    "ext": "js json scss",
+    "verbose": true,
+    "watch": ["src/**/*.js"],
+    "exec": "js-node ./src/index.js",
+    "pollingInterval": 100,
+    "legacyWatch": true
+}

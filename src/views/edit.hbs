@@ -1,27 +1,22 @@
 <div class="crate_page">
-    <h1 class="title">Thêm sản phẩm</h1>
+    <h1 class="title">Sửa sản phẩm</h1>
 
-    <form method="POST" action="/product/store">
+    <form method="POST" action="/product/coffee/{{coffee._id}}?_method=PUT">
         <div class="c-container">
             <div class="c-content w-50">
                 <div class="form-floating">
                     <select name="type" class="form-select" id="type-product">
-                        <option selected>Chọn loại sản phẩm muốn thêm </option>
-                        <option value="coffee">Coffee</option>
-                        <option value="tea">Tea</option>
-                        <option value="dishes">Món ăn</option>
-                        <option value="capsules">Capsules</option>
-                        <option value="machine">Thiết bị</option>
+                        <option selected>Coffee</option>
                     </select>
                     <label for="type-product">Loại sản phẩm <span class="_required">*</span></label>
                 </div>
                 <div class="form-floating mb-3 mt-3">
-                    <input name="name" type="text" class="form-control" id="name" placeholder="Nhập tên sản phẩm">
+                    <input name="name" type="text" class="form-control" id="name" placeholder="Nhập tên sản phẩm" value="{{coffee.name}}">
                     <label for="name">Tên sản phẩm <span class="_required">*</span></label>
                 </div>
                 <div class="form-floating">
                     <select name="brand"class="form-select" id="brands">
-                        <option selected>Chọn nhãn hàng</option>
+                        <option selected>{{coffee.brand}}</option>
                         <option value="Starbucks">Starbucks</option>
                         <option value="Gờ Coffee">Gờ Coffee</option>
                         <option value="Cheese Coffee">Cheese Coffee</option>
@@ -37,20 +32,24 @@
                     <label for="brands">Nhãn hàng <span class="_required">*</span></label>
                 </div>
                 <div class="form-floating mb-3 mt-3">
-                    <input name="date" type="date" class="form-control" id="date" placeholder="Nhập tên sản phẩm">
+                    <input name="date" type="date" class="form-control" id="date" placeholder="Nhập tên sản phẩm" value="{{coffee.date}}">
                     <label for="date">Ngày sản xuất</label>
                 </div>
                 <div class="form-floating mb-3 mt-3">
-                    <input name="price" type="text" class="form-control" id="price" placeholder="Nhập giá bán phẩm">
+                    <input name="price" type="text" class="form-control" id="price" placeholder="Nhập giá bán phẩm" value="{{coffee.price}}">
                     <label for="price">Giá bán sản phẩm <span class="_required">*</span></label>
                 </div>
+                <div class="form-floating mb-3 mt-3">
+                    <input name="sale" type="text" class="form-control" id="sale" placeholder="Nhập giá bán phẩm" value="{{coffee.sale}}">
+                    <label for="sale">Sale</label>
+                </div>
                 <div class="form-floating mt-3">
-                    <textarea name="description" class="form-control" placeholder="Leave a comment here" id="description" style="height: 100px"></textarea>
+                    <textarea  name="description" class="form-control" placeholder="Leave a comment here" id="description" style="height: 100px">{{coffee.description}}</textarea>
                     <label for="description">Mô tả về sản phẩm</label>
                 </div>
         
                 <div class="form-floating mt-3">
-                    <textarea name="info" class="form-control" placeholder="Leave a comment here" id="info" style="height: 200px"></textarea>
+                    <textarea name="info" class="form-control" placeholder="Leave a comment here" id="info" style="height: 200px">{{coffee.info}}</textarea>
                     <label for="info">Hướng dẫn về sản phẩm</label>
                 </div>
         
@@ -68,8 +67,8 @@
                 </div>
             </div>
             <div class="w-100 mt-3 border-top pt-3">
-                <div class="btn btn-danger c-button float-start">Clear</div>
-                <button type="submit" class="btn btn-primary c-button">Thêm sản phẩm</button>
+                <div class="btn btn-danger c-button float-start">Xóa</div>
+                <button type="submit" class="btn btn-primary c-button">Sửa sản phẩm</button>
             </div>
         </div>
     </form>
@@ -106,5 +105,4 @@
     }
     
     });
-    
 </script>
