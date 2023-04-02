@@ -5,7 +5,7 @@
         <div class="c-container">
             <div class="c-content w-50">
                 <div class="form-floating">
-                    <select name="type" class="form-select" id="type-product">
+                    <select name="type" class="form-select" id="type-product" required>
                         <option selected>Chọn loại sản phẩm muốn thêm </option>
                         <option value="coffee">Coffee</option>
                         <option value="tea">Tea</option>
@@ -16,11 +16,11 @@
                     <label for="type-product">Loại sản phẩm <span class="_required">*</span></label>
                 </div>
                 <div class="form-floating mb-3 mt-3">
-                    <input name="name" type="text" class="form-control" id="name" placeholder="Nhập tên sản phẩm">
+                    <input name="name" type="text" class="form-control" id="name" placeholder="Nhập tên sản phẩm" required>
                     <label for="name">Tên sản phẩm <span class="_required">*</span></label>
                 </div>
                 <div class="form-floating">
-                    <select name="brand"class="form-select" id="brands">
+                    <select name="brand"class="form-select" id="brands" required>
                         <option selected>Chọn nhãn hàng</option>
                         <option value="Starbucks">Starbucks</option>
                         <option value="Gờ Coffee">Gờ Coffee</option>
@@ -40,8 +40,8 @@
                     <input name="date" type="date" class="form-control" id="date" placeholder="Nhập tên sản phẩm">
                     <label for="date">Ngày sản xuất</label>
                 </div>
-                <div class="form-floating mb-3 mt-3">
-                    <input name="price" type="text" class="form-control" id="price" placeholder="Nhập giá bán phẩm">
+                <div class="form-floating mb-3 mt-3" >
+                    <input name="price" type="text" class="form-control" id="price" placeholder="Nhập giá bán phẩm" required>
                     <label for="price">Giá bán sản phẩm <span class="_required">*</span></label>
                 </div>
                 <div class="form-floating mt-3">
@@ -58,9 +58,9 @@
             </div>
             <div class="c-image w-50 mt-3">
                 <div id="image_preview">
-                    <div class="preview">
+                    <label class="preview" for="multiple-img">
                         <img class="disable" src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg" />
-                    </div>
+                    </label>
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="multiple-img" class="form-label">Thêm hình ảnh sản phẩm</label>
@@ -68,8 +68,8 @@
                 </div>
             </div>
             <div class="w-100 mt-3 border-top pt-3">
-                <div class="btn btn-danger c-button float-start">Clear</div>
-                <button type="submit" class="btn btn-primary c-button">Thêm sản phẩm</button>
+                <div class="btn btn-danger c-button float-start" id="clear-input">Clear</div>
+                <button type="submit" class="btn btn-success c-button">Thêm sản phẩm</button>
             </div>
         </div>
     </form>
@@ -78,7 +78,11 @@
 <script>
     const imageInput = document.getElementById('multiple-img');
     const previewImages = document.getElementById('image_preview');
-
+    const inputAll = document.querySelectorAll('input');
+    const selectType = document.querySelector('#type-product');
+    const selectBrand = document.querySelector('#brands');
+    const textareaAll = document.querySelectorAll('textarea');
+//  Preview image
     imageInput.addEventListener('change', function() {
     previewImages.innerHTML = '';
     const files = this.files;
@@ -104,7 +108,18 @@
             reader.readAsDataURL(file);
         }
     }
-    
     });
     
+//    -- Clear input --
+    $('#clear-input').click(() => {
+        inputAll.forEach(input => {
+            input.value = ""
+        })
+        selectType.value = 'Chọn loại sản phẩm muốn thêm'
+        selectBrand.value = 'Chọn nhãn hàng'
+        textareaAll.forEach(text => {
+            text.value = ""
+        })
+        $('#image_preview').html('<label class="preview" for="multiple-img"><img class="disable" src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg" /></label>')
+    })
 </script>

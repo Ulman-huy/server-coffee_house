@@ -8,7 +8,7 @@ const methodOverride = require('method-override');
 const path = require('path');
 const port = 3000;
  
-const app = express();    
+const app = express();
 app.use(express.urlencoded());
 db.connect(); // Connect database
 
@@ -26,6 +26,11 @@ app.engine('hbs', handlebars.engine({
         formatDate: date => {
             var newsDate  = new Date(date)
             return newsDate.toLocaleDateString("en-US")
+        },
+        render: (product, type) => {
+            if(product.type === type) {
+                
+            }
         }
     }
 }))  

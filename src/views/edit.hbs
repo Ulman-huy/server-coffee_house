@@ -1,22 +1,22 @@
 <div class="crate_page">
     <h1 class="title">Sửa sản phẩm</h1>
 
-    <form method="POST" action="/product/coffee/{{coffee._id}}?_method=PUT">
+    <form method="POST" action="/product/{{product._id}}?_method=PUT">
         <div class="c-container">
             <div class="c-content w-50">
                 <div class="form-floating">
                     <select name="type" class="form-select" id="type-product">
-                        <option selected>Coffee</option>
+                        <option selected>{{product.type}}</option>
                     </select>
                     <label for="type-product">Loại sản phẩm <span class="_required">*</span></label>
                 </div>
                 <div class="form-floating mb-3 mt-3">
-                    <input name="name" type="text" class="form-control" id="name" placeholder="Nhập tên sản phẩm" value="{{coffee.name}}">
+                    <input name="name" type="text" class="form-control" id="name" placeholder="Nhập tên sản phẩm" value="{{product.name}}">
                     <label for="name">Tên sản phẩm <span class="_required">*</span></label>
                 </div>
                 <div class="form-floating">
                     <select name="brand"class="form-select" id="brands">
-                        <option selected>{{coffee.brand}}</option>
+                        <option selected>{{product.brand}}</option>
                         <option value="Starbucks">Starbucks</option>
                         <option value="Gờ Coffee">Gờ Coffee</option>
                         <option value="Cheese Coffee">Cheese Coffee</option>
@@ -32,24 +32,24 @@
                     <label for="brands">Nhãn hàng <span class="_required">*</span></label>
                 </div>
                 <div class="form-floating mb-3 mt-3">
-                    <input name="date" type="date" class="form-control" id="date" placeholder="Nhập tên sản phẩm" value="{{coffee.date}}">
+                    <input name="date" type="date" class="form-control" id="date" placeholder="Nhập tên sản phẩm" value="{{product.date}}">
                     <label for="date">Ngày sản xuất</label>
                 </div>
                 <div class="form-floating mb-3 mt-3">
-                    <input name="price" type="text" class="form-control" id="price" placeholder="Nhập giá bán phẩm" value="{{coffee.price}}">
+                    <input name="price" type="text" class="form-control" id="price" placeholder="Nhập giá bán phẩm" value="{{product.price}}">
                     <label for="price">Giá bán sản phẩm <span class="_required">*</span></label>
                 </div>
                 <div class="form-floating mb-3 mt-3">
-                    <input name="sale" type="text" class="form-control" id="sale" placeholder="Nhập giá bán phẩm" value="{{coffee.sale}}">
+                    <input name="sale" type="text" class="form-control" id="sale" placeholder="Nhập giá bán phẩm" value="{{product.sale}}">
                     <label for="sale">Sale</label>
                 </div>
                 <div class="form-floating mt-3">
-                    <textarea  name="description" class="form-control" placeholder="Leave a comment here" id="description" style="height: 100px">{{coffee.description}}</textarea>
+                    <textarea  name="description" class="form-control" placeholder="Leave a comment here" id="description" style="height: 100px">{{product.description}}</textarea>
                     <label for="description">Mô tả về sản phẩm</label>
                 </div>
         
                 <div class="form-floating mt-3">
-                    <textarea name="info" class="form-control" placeholder="Leave a comment here" id="info" style="height: 200px">{{coffee.info}}</textarea>
+                    <textarea name="info" class="form-control" placeholder="Leave a comment here" id="info" style="height: 200px">{{product.info}}</textarea>
                     <label for="info">Hướng dẫn về sản phẩm</label>
                 </div>
         

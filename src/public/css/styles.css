@@ -177,6 +177,14 @@ svg {
  .p-wrap a:hover {
     text-decoration: underline;
 }
+.p-wrap .head {
+    display: flex;
+    justify-content: space-between;
+}
+.p-wrap .create-prd:hover {
+    text-decoration: none;
+}
+
 @keyframes animate {
     from { 
         transform: translateY(-12px);

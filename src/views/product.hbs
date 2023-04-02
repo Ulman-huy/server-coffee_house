@@ -1,58 +1,37 @@
 <div class="p-wrap">
-    <h1 class="title">Thông tin sản phẩm</h1>
-    <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Coffee</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Tea</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Món Ăn</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Capsules</button>
-        </li>
-    </ul>
-        <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-            <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col" class="px-3">#</th>
-                    <th scope="col">Tên sản phẩm</th>
-                    <th scope="col">Thương hiệu</th>
-                    <th scope="col">Ngày sản xuất</th>
-                    <th scope="col">Giá bán</th>
-                    <th scope="col" colspan="3">Sale</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each coffee}}
-                        <tr>
-                        <th scope="row" class="px-3">{{@index}}</th>
-                        <td class="">{{this.name}}</td>
-                        <td class="w-10">{{this.brand}}</td>
-                        <td class="w-15">{{formatDate this.date}}</td>
-                        <td class="w-10">{{this.price}}</td>
-                        <td class="w-5">{{this.sale}}%</td>
-                        <td><a href="/product/coffee/{{this._id}}/edit" class="text-primary px-3">Sửa</a></td>
-                        <td><a href="" class="text-danger" id="delete" data-bs-toggle="modal" data-bs-target="#delete-modal" data-id="{{this._id}}">Xóa</a></td>
-                        </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-            ...
-        </div>
-        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-            ...
-        </div>
-        <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
-            ...
-        </div>
+    <div class="head mb-4 pb-3 border-bottom">
+        <h1 class="title">Thông tin sản phẩm</h1>
+        <a href="/product/create" class="create-prd btn btn-success">Thêm sản phẩm</a>
     </div>
+    <div class="filter border-bottom py-4">
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col" class="px-3">Loại</th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Thương hiệu</th>
+            <th scope="col">Ngày sản xuất</th>
+            <th scope="col">Giá bán</th>
+            <th scope="col" colspan="3">Sale</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each product}}
+                <tr>
+                    <th scope="row" class="px-3">{{this.type}}</th>
+                    <td>{{this.name}}</td>
+                    <td class="w-10">{{this.brand}}</td>
+                    <td class="w-15">{{formatDate this.date}}</td>
+                    <td class="w-10">{{this.price}}</td>
+                    <td class="w-5">{{this.sale}}%</td>
+                    <td><a href="/product/{{this._id}}/edit" class="text-primary px-3">Sửa</a></td>
+                    <td><a href="" class="text-danger" id="delete" data-bs-toggle="modal" data-bs-target="#delete-modal" data-id="{{this._id}}">Xóa</a></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
 </div>
 
 <form name="delete-form" method="POST"></form>
@@ -87,7 +66,7 @@
         })  
 
         confirmDelete.onclick = function () {
-          deleteForm.action = '/product/coffee/' + coffeeId + '?_method=DELETE'; 
+          deleteForm.action = '/product/' + coffeeId + '?_method=DELETE'; 
           deleteForm.submit()
         }
     })

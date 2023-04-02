@@ -3,7 +3,8 @@ const slug = require('mongoose-slug-generator');
 
 mongoose.plugin(slug);
 
-const coffeeSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
+    type: { type: String, default: 'coffee'},
     name: { type: String, required: true},
     brand: {type: String, default: 'no brand'},
     price: {type: Number, required: true},
@@ -20,4 +21,4 @@ const coffeeSchema = new mongoose.Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('coffee_house', coffeeSchema);
+module.exports = mongoose.model('coffee_house', productSchema);
