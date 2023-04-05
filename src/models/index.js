@@ -4,7 +4,7 @@ const slug = require('mongoose-slug-generator');
 mongoose.plugin(slug);
 
 const productSchema = new mongoose.Schema({
-    type: { type: String, default: 'coffee'},
+    type: { type: String, default: 'Coffee'},
     name: { type: String, required: true},
     brand: {type: String, default: 'no brand'},
     price: {type: Number, required: true},
@@ -21,4 +21,17 @@ const productSchema = new mongoose.Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('coffee_house', productSchema);
+const imageSchema = new mongoose.Schema({
+    filename: String,
+    path: String,
+    size: Number
+}, {
+    timestamps: true
+})
+const Product = mongoose.model('coffee_house', productSchema);
+const Image = mongoose.model('image', imageSchema);
+
+module.exports = { 
+    Product: Product,
+    Image: Image
+}

@@ -10,12 +10,12 @@ const port = 3000;
  
 const app = express();
 app.use(express.urlencoded());
-db.connect(); // Connect database
+db.connect(); // Connect database 
 
 // override with POST having ?_method=DELETE
 app.use(methodOverride('_method'))
 
-app.use(cors());
+app.use(cors()); 
 app.use(morgan('combined'));
 
 app.use(express.static(path.join(__dirname, 'public'))); 
@@ -26,11 +26,6 @@ app.engine('hbs', handlebars.engine({
         formatDate: date => {
             var newsDate  = new Date(date)
             return newsDate.toLocaleDateString("en-US")
-        },
-        render: (product, type) => {
-            if(product.type === type) {
-                
-            }
         }
     }
 }))  
