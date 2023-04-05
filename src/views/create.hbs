@@ -1,13 +1,12 @@
 <div class="crate_page">
     <h1 class="title">Thêm sản phẩm</h1>
     {{#if success}}
-        <div class="alert alert-success mt-3">{{success}}</div>
-    {{/if}}
-    {{#if error}}
-        <div class="alert alert-error">{{error}}</div>
+        <div class="alert alert-success" role="alert">
+            {{success}}
+        </div>
     {{/if}}
     <form method="POST" id="info-form" action="/product/store" enctype="multipart/form-data">
-        <div class="c-container">
+        <div class="c-container"> 
             <div class="c-content w-50">
                 <div class="form-floating">
                     <select name="type" class="form-select" id="type-product" required>
@@ -127,16 +126,5 @@
         })
         $('#image_preview').html('<label class="preview" for="multiple-img"><img class="disable" src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg" /></label>')
     })
-//Submit multiple from 
-    
-    
-   // function submitForm(idForm) {
-       // const form = document.getElementById(idForm)
-    //    const inputHidden = document.querySelector('.-hidden-input');
-    //    const inputName = document.querySelector('#name');
-
-     //   inputHidden.value = inputName.value
-     //   form.submit()
-   // }
 
 </script>
