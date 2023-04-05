@@ -1,6 +1,11 @@
 <div class="crate_page">
     <h1 class="title">Thêm sản phẩm</h1>
-
+    {{#if success}}
+        <div class="alert alert-success mt-3">{{success}}</div>
+    {{/if}}
+    {{#if error}}
+        <div class="alert alert-error">{{error}}</div>
+    {{/if}}
     <form method="POST" id="info-form" action="/product/store" enctype="multipart/form-data">
         <div class="c-container">
             <div class="c-content w-50">
@@ -23,6 +28,7 @@
                     <select name="brand"class="form-select" id="brands" required>
                         <option selected>Chọn nhãn hàng</option>
                         <option value="Starbucks">Starbucks</option>
+                        <option value="Starbucks">HighLands</option>
                         <option value="Gờ Coffee">Gờ Coffee</option>
                         <option value="Cheese Coffee">Cheese Coffee</option>
                         <option value="Phúc Long">Phúc Long</option>
@@ -32,7 +38,7 @@
                         <option value="Chuk Chuk">Chuk Chuk</option>
                         <option value="Laha Coffee">Laha Coffee</option>
                         <option value="Katinat Coffee">Katinat Coffee</option>
-                        <option value="Trạng Nguyên">Trạng Nguyên</option>
+                        <option value="Trung Nguyên">Trung Nguyên</option>
                     </select>
                     <label for="brands">Nhãn hàng <span class="_required">*</span></label>
                 </div>

@@ -1,6 +1,9 @@
+require('dotenv').config();
+
 const { Product, Image } = require('../models');
 const { multipleMongooseToObject, mongooseToObject } = require('../util/mongoose')
 
+const serverUrl = process.env.SERVER;
 class ProductController {
 
     // [GET] api
@@ -29,7 +32,7 @@ class ProductController {
                         sale: product.sale,
                         description: product.description,
                         info: product.info,
-                        src: images.map(image => image.path.slice(11))
+                        src: images.map(image => serverUrl + image.path.slice(11))
                     };
                 });
                 });
@@ -50,7 +53,10 @@ class ProductController {
     }
     // [GET] /product/create
     create(req, res, next) {
-        res.render('create')
+        res.render('create',  {
+            success: req.flash('success'),
+            error: req.flash('error')
+        })
     }
     // [POST] /product/store
     store(req, res, next) {
@@ -76,7 +82,11 @@ class ProductController {
             const product = new Product({ ...req.body, images: id_images });
             return product.save();
           })
-          .then(() => res.redirect('/product/create'))
+          .then(() => {
+            // Send a success message to the client
+            req.flash('success', 'Lưu sản phẩm thành công!');
+            res.redirect('/product/create');
+        })
           .catch(next);
     }
     // [GET] /product/product/:id/edit
