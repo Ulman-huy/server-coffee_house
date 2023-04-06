@@ -13,6 +13,7 @@ const productSchema = new mongoose.Schema({
     sale: {type: Number, default: 0},
     brand: {type: String},
     description: {type: String},
+    sold: { type: Number, default: 0},
     info: {type: String},
     images: {type: Array},
     date: {type: Date},
@@ -28,10 +29,24 @@ const imageSchema = new mongoose.Schema({
 }, {
     timestamps: true
 })
+
+const userSchema = new mongoose.Schema({
+    username: { type: String },
+    password: { type: String },
+    cart: { type: Array },
+    email: { type: String },
+    phone: { type: String },
+    name: { type: String },
+    avatar: { type: String },
+}, {
+    timestamps: true
+})
 const Product = mongoose.model('coffee_house', productSchema);
 const Image = mongoose.model('image', imageSchema);
+const User = mongoose.model('user', userSchema);
 
 module.exports = { 
     Product: Product,
-    Image: Image
+    Image: Image,
+    User: User
 }

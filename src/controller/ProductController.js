@@ -32,7 +32,8 @@ class ProductController {
                         sale: product.sale,
                         description: product.description,
                         info: product.info,
-                        src: images.map(image => serverUrl + image.path.slice(11))
+                        src: images.map(image => serverUrl + image.path.slice(11)),
+                        slug: product.slug,
                     };
                 });
                 });
@@ -107,8 +108,40 @@ class ProductController {
     }
     // [GET] /product/product/api/:id 
     getProduct(req, res, next) {
-        Product.findOne( {slug: req.params.slug})
-            .then(prd => res.json(prd))
+        Product.findOne({ slug: req.params.slug })
+            .populate('images')
+            .then((product) => {
+                const imageIds = product.images;
+                const images = [];
+                return Promise.all(imageIds.map((imageId) => {
+                return Image.findById(imageId)
+                    .then((image) => {
+                    if (image) {
+                        images.push(image);
+                    }
+                    });
+                })).then(() => {
+                const result = {
+                    _id: product._id,
+                    type: product.type,
+                    name: product.name,
+                    brand: product.brand,
+                    price: product.price,
+                    star: product.star,
+                    sale: product.sale,
+                    description: product.description,
+                    info: product.info,
+                    src: images.map(image => serverUrl + image.path.slice(11)),
+                    slug: product.slug,
+                };
+                res.json(result);
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+                res.status(500).json({ error: 'Internal server error' });
+            });
+
     }
 }
 

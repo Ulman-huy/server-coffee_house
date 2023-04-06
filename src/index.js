@@ -23,8 +23,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
-app.use(flash());
+app.use(express.json());
+app.use(flash()); 
 
 app.use(express.static(path.join(__dirname, 'public'))); 
 
