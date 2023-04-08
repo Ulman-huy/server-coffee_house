@@ -6,36 +6,24 @@ class SiteController {
     index(req, res, next) {
         res.render('home');
     }
-    // Login
+    // [POST]/login
     login(req,res, next) {
-
+        const { username, password } = req.body;
+        if(!username || !password) {
+            return res.status(400).json({ message: "Vui lòng nhập đủ thông tin!"})
+        }
+        User.findOne({ username: username })
+            .then((user) => {
+                if(user.password === password) {
+                    return res.status(200).json(user);
+                }
+                return res.status(400).json({ message: 'Tài khoản hoặc mật khẩu chưa chính xác!'})
+            })
+            .catch((error) => {
+                return res.status(400).json({ message: "Đăng nhập không thành công. Thử lại!" })
+            })
     }
-    // Sigup
-    // signup (req, res)  {
-    //     const { username, password } = req.body;
-    //     // Kiểm tra nếu các trường thông tin đăng ký bị thiếu
-    //     if (!username || !password) {
-    //         return res.status(400).json({ message: 'Vui lòng nhập đầy đủ thông tin đăng ký!' });
-    //     }
-    
-    //     // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu chưa
-    //     // User.findOne({ username: username })
-    //     //     .then((existingUser) => {
-    //     //         if (existingUser) {
-    //     //             throw new Error('Tài khoản đã tồn tại!');
-    //     //         }
-    //     //         // Tạo user mới và lưu vào cơ sở dữ liệu
-    //     //         const newUser = new User({ username, password });
-    //     //         return newUser.save();
-    //     //     })
-    //     //     .then(() => {
-    //     //         return res.status(200).json({ message: 'Đăng ký thành công!' });
-    //     //     })
-    //     //     .catch((err) => {
-    //     //         console.error(err);
-    //     //         return res.status(500).json({ message: 'Đăng ký không thành công!' });
-    //     // });
-    // };
+    // [POST]/sigup
     sigup(req, res, next) {
         const { username, password } = req.body;
         if (!username || !password) {
@@ -50,11 +38,13 @@ class SiteController {
                 const newUser = new User({ username, password });
                 return newUser.save();
             })
+            .then(user => {
+                return res.status(200).json(user)
+            })
             .then(() => {
                 return res.status(200).json({ message: 'Đăng ký thành công!' });
             })
             .catch(err => {
-                console.error(err);
                 return res.status(500).json({ message: 'Đăng ký không thành công!' })
             });
 

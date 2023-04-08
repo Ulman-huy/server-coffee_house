@@ -34,10 +34,10 @@ const userSchema = new mongoose.Schema({
     username: { type: String },
     password: { type: String },
     cart: { type: Array },
-    email: { type: String },
-    phone: { type: String },
-    name: { type: String },
-    avatar: { type: String },
+    email: { type: String, default: '' },
+    phone: { type: String, default: '' },
+    name: { type: String, default: '' },
+    avatar: { type: String, default: '' },
 }, {
     timestamps: true
 })
