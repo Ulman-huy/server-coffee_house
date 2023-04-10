@@ -13,9 +13,7 @@
                         <option selected>Chọn loại sản phẩm muốn thêm </option>
                         <option value="Coffee">Coffee</option>
                         <option value="Tea">Tea</option>
-                        <option value="Dishes">Món ăn</option>
-                        <option value="Capsules">Capsules</option>
-                        <option value="Machine">Thiết bị</option> 
+                        <option value="Món ăn">Món ăn</option>
                     </select>
                     <label for="type-product">Loại sản phẩm <span class="_required">*</span></label>
                 </div>
@@ -24,20 +22,8 @@
                     <label for="name">Tên sản phẩm<span class="_required">*</span></label>
                 </div>
                 <div class="form-floating">
-                    <select name="brand"class="form-select" id="brands" required>
+                    <select name="brand" class="form-select" id="brands" required>                        
                         <option selected>Chọn nhãn hàng</option>
-                        <option value="Starbucks">Starbucks</option>
-                        <option value="Starbucks">HighLands</option>
-                        <option value="Gờ Coffee">Gờ Coffee</option>
-                        <option value="Cheese Coffee">Cheese Coffee</option>
-                        <option value="Phúc Long">Phúc Long</option>
-                        <option value="VinaCafe">VinaCafe</option>
-                        <option value="NesCafe">NesCafe</option>
-                        <option value="Ông Bầu">Ông Bầu</option>
-                        <option value="Chuk Chuk">Chuk Chuk</option>
-                        <option value="Laha Coffee">Laha Coffee</option>
-                        <option value="Katinat Coffee">Katinat Coffee</option>
-                        <option value="Trung Nguyên">Trung Nguyên</option>
                     </select>
                     <label for="brands">Nhãn hàng <span class="_required">*</span></label>
                 </div>
@@ -66,7 +52,7 @@
                 <div class="c-image w-50 mt-3">
                     <input style="display: none;" class="-hidden-input" value="" />
                     <div id="image_preview">
-                        <label class="preview" for="multiple-img">
+                        <label class="preview" for="multiple-img" style="cursor: pointer;">
                             <img class="disable" src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg" />
                         </label>
                     </div>
@@ -129,6 +115,68 @@
             text.value = ""
         })
         $('#image_preview').html('<label class="preview" for="multiple-img"><img class="disable" src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg" /></label>')
+    })
+   
+    const BRAND_LIST = [
+        {
+            type: 'Coffee',
+            data: [
+                    'Starbucks',
+                    'HighLands',
+                    'Gờ Coffee',
+                    'Cheese Coffee',
+                    'Phúc Long',
+                    'VinaCafe',
+                    'NesCafe',
+                    'Ông Bầu',
+                    'Chuk Chuk',
+                    'Laha Coffee',
+                    'Katinat Coffee',
+                    'Trung Nguyên'
+                ]
+        },
+        {
+            type: 'Tea',
+            data: [
+                    'Trà Atiso',
+                    'Trà Thái Nguyên',
+                    'Trà sữa Koi Thé',
+                    'Trà Olong Trà Ý',
+                    'Trà Sen Việt',
+                    'Trà Vạn Lộc',
+                    'Trà Thượng Hạng',
+                    'Trà Thanh Tâm',
+                    'Trà Hoa Viên',
+                    'Trà Việt Nam'
+                ]
+        },
+        {
+            type: 'Món ăn',
+            data: [
+                'Kinh Đô',
+                'Bibica',
+                'Phước Lộc Thọ',
+                'ABC Bakery',
+                'Bánh Đa Lợn Huế',
+                'Thăng Long',
+                'Hải Hà',
+                'Đức Phát',
+                'Anh Đào',
+                'Kẹo Mèo',
+            ]
+        },
+    ]
+    $('#type-product').change(e => {
+        let renderOptionBrand;
+        for(let brands of BRAND_LIST ) {
+            if(brands.type === $('#type-product').val())
+                console.log(brands.type)
+                renderOptionBrand = brands
+        }
+        let html = renderOptionBrand.data.map(option => `<option value="${option}">${option}</option>`);
+        html.unshift('<option selected>Chọn nhãn hàng</option>')
+        $('#brands').html('')
+        $('#brands').append(html)
     })
 
 </script>

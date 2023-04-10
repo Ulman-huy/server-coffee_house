@@ -38,6 +38,7 @@ const userSchema = new mongoose.Schema({
     phone: { type: String, default: '' },
     name: { type: String, default: '' },
     avatar: { type: String, default: '' },
+    location: { type: String, default: ''}
 }, {
     timestamps: true
 })

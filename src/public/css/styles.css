@@ -145,6 +145,33 @@ svg {
 .menu_dropdown-item:hover {
    padding-left: 44px;
 } 
+/* Home page */
+.wrap-chart {
+    background-color: #d4bdde;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    padding: 40px;
+    margin-bottom: 0px;
+    gap: 40px;
+    justify-content: center;
+}
+.wrap-chart > div {
+    width: 100%;
+}
+.wrap-chart > div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+}
+.doughnut-wrap {
+    width: 50%;
+}
+#chart {
+    border: 1px solid;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: #251c35;
+}
 /* Create page */
 .crate_page {
     padding: 24px;
