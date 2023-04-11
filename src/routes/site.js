@@ -4,7 +4,6 @@ const SiteController = require('../controller/SiteController')
 
 router.post('/login', SiteController.login)
 router.post('/sigup', SiteController.sigup)
-router.post('/user/getCart', SiteController.getCart)
 router.get('/', SiteController.index)
 
-module.exports = router;
+module.exports = router; 

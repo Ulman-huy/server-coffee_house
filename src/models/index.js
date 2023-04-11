@@ -42,6 +42,13 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps: true
 })
+
+const packageSchema = new mongoose.Schema({
+    name: {type: String},
+    phone: {type: String},
+    location: {type: String},
+})
+
 const Product = mongoose.model('coffee_house', productSchema);
 const Image = mongoose.model('image', imageSchema);
 const User = mongoose.model('user', userSchema);
