@@ -120,20 +120,21 @@ class ProductController {
                         images.push(image);
                     }
                     });
-                })).then(() => {
-                const result = {
-                    _id: product._id,
-                    type: product.type,
-                    name: product.name,
-                    brand: product.brand,
-                    price: product.price,
-                    star: product.star,
-                    sale: product.sale,
-                    description: product.description,
-                    info: product.info,
-                    src: images.map(image => serverUrl + image.path.slice(11)),
-                    slug: product.slug,
-                };
+                }))
+                .then(() => {
+                    const result = {
+                        _id: product._id,
+                        type: product.type,
+                        name: product.name,
+                        brand: product.brand,
+                        price: product.price,
+                        star: product.star,
+                        sale: product.sale,
+                        description: product.description,
+                        info: product.info,
+                        src: images.map(image => serverUrl + image.path.slice(11)),
+                        slug: product.slug,
+                    };
                 res.json(result);
                 });
             })

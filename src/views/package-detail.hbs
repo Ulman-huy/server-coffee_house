@@ -1,0 +1,59 @@
+<div class="wrap__package-detail">
+    <h2 class="title">Đơn hàng: {{package.id}}</h2>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Họ tên</th>
+                <th scope="col">Số điện thoại</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Ngày đặt hàng</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Ghi chủ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">{{package.name}}</th>
+                <td>{{package.phone}}</td>
+                <td>{{package.location}}</td>
+                <td>{{formatDate package.time}}</td>
+                <td> 
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>{{package.status}}</option>
+                        <option value="1">Đã đóng gói</option>
+                        <option value="2">Đang giao</option>
+                        <option value="3">Giao thành công</option>
+                    </select>
+                </td>
+                <td>{{package.message}}</td>
+                </tr>
+            </tbody>
+            </table>
+        <h4>Thông tin sản phẩm</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Ảnh</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each package.packages}}
+                <tr>
+                <th scope="row">
+                    <img width="80" src="{{getFirstImage this.src}}" />
+                </th>
+                <td>{{this.name}}</td>
+                <td>{{this.quantity}}</td>
+                <td>{{this.price}}</td>
+                <td></td>
+                </tr>
+                {{/each}}
+            </tbody>
+            </table>
+    </div>
+</div>

@@ -57,6 +57,7 @@ class UserController {
         User.findById(req.body.userId)
             .then(user => res.status(200).json(user)) 
     }
+    
 }
 
 module.exports = new UserController;

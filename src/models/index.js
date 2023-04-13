@@ -44,17 +44,26 @@ const userSchema = new mongoose.Schema({
 })
 
 const packageSchema = new mongoose.Schema({
+    userId: { type: String},
     name: {type: String},
     phone: {type: String},
     location: {type: String},
+    message: { type: String},
+    status: {type: String, default: 'Chờ xử lý...'},
+    cart: [],
+    time: { type: String, default: new Date }
+}, {
+    timestamps: true
 })
 
 const Product = mongoose.model('coffee_house', productSchema);
 const Image = mongoose.model('image', imageSchema);
 const User = mongoose.model('user', userSchema);
+const Package = mongoose.model('package', packageSchema)
 
 module.exports = { 
     Product: Product,
     Image: Image,
-    User: User
+    User: User,
+    Package: Package,
 }

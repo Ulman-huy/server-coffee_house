@@ -34,6 +34,9 @@ app.engine('hbs', handlebars.engine({
         formatDate: date => {
             var newsDate  = new Date(date)
             return newsDate.toLocaleDateString("en-US")
+        },
+        getFirstImage(arr) {
+            return arr[0]
         }
     }
 }))  

@@ -234,7 +234,14 @@ svg {
 .p-wrap .create-prd:hover {
     text-decoration: none;
 }
-
+/* package */
+.package__wrap {
+    padding: 24px;
+}
+/* package detail */
+.wrap__package-detail {
+    padding: 24px;
+}
 @keyframes animate {
     from { 
         transform: translateY(-12px);

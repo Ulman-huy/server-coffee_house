@@ -1,0 +1,38 @@
+<div class="package__wrap">
+    <h2 class="package__title">Danh sách đơn hàng</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Khách hàng</th>
+          <th scope="col">SĐT</th>
+          <th scope="col">Địa chỉ</th>
+          <th scope="col">Thời gian</th>
+          <th scope="col">Đơn hàng</th>
+          <th scope="col">Trạng thái</th>
+          <th scope="col">Ghi chú</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each packages}}
+            <tr>
+                <th scope="row">{{@index}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.phone}}</td>
+                <td>{{this.location}}</td>
+                <td>{{formatDate this.time}}</td>
+                <td><a href="/order/package/{{this._id}}">Xem chi tiết</a></td>
+                <td>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>{{this.status}}</option>
+                        <option value="1">Đã đóng gói</option>
+                        <option value="2">Đang giao</option>
+                        <option value="3">Giao thành công</option>
+                    </select>
+                </td>
+                <td>{{this.message}}</td>
+            </tr>
+        {{/each}}
+      </tbody>
+    </table>
+</div>
