@@ -1,4 +1,4 @@
-const ObjectId = require('mongodb').ObjectId;
+const ObjectId = require('mongoose').Types.ObjectId;
 const { Package, Product, Image } = require('../models')
 const { multipleMongooseToObject, mongooseToObject } = require('../util/mongoose')
 const serverUrl = process.env.SERVER;
@@ -38,12 +38,6 @@ class OrderController {
                     .then((products) => {
                         const result = products.map(product => {
                         const imageIds = product.images;
-                        const newCart = Object.values(pkgInfo.cart)
-                            newCart.forEach(item => {
-                                if(item.id_product === product._id) {
-                                    qnt = item.quantity
-                                }
-                            });
                         const images = [];
                         return Promise.all(imageIds.map((imageId) => {
                             return Image.findById(imageId)
@@ -53,6 +47,12 @@ class OrderController {
                                 }
                             });
                         })).then(() => {
+                            const newCart = Object.values(pkgInfo.cart)
+                            newCart.forEach(item => {
+                                if(item.id_product === product.id) {
+                                    qnt = item.quantity
+                                }
+                            });
                             return {
                                 _id: product._id,
                                 type: product.type,

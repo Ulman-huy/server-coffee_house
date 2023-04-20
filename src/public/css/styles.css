@@ -242,6 +242,13 @@ svg {
 .wrap__package-detail {
     padding: 24px;
 }
+.wrap__package-detail .total {
+    background-color: #d4bdde;
+    padding:  12px 60px 12px;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: right;
+}
 @keyframes animate {
     from { 
         transform: translateY(-12px);

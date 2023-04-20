@@ -44,16 +44,26 @@
             <tbody>
                 {{#each package.packages}}
                 <tr>
-                <th scope="row">
-                    <img width="80" src="{{getFirstImage this.src}}" />
-                </th>
-                <td>{{this.name}}</td>
-                <td>{{this.quantity}}</td>
-                <td>{{this.price}}</td>
-                <td></td>
+                    <th scope="row">
+                        <img width="80" src="{{getFirstImage this.src}}" />
+                    </th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.quantity}}</td>
+                    <td>{{this.price}}</td>
+                    <td class="summary">{{summary this.quantity this.price}}</td>
                 </tr>
                 {{/each}}
             </tbody>
-            </table>
+        </table>
+        <div class="total">Tổng tiền: ₫<span></span></div>
     </div>
 </div>
+<script>
+    const total = document.querySelectorAll('.summary')
+    let result = 0;
+    total.forEach(price => {
+        let m = Number(price.textContent)
+        result+=m
+    })
+    document.querySelector('.total span').innerHTML = result
+</script>

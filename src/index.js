@@ -37,6 +37,9 @@ app.engine('hbs', handlebars.engine({
         },
         getFirstImage(arr) {
             return arr[0]
+        },
+        summary(a, b) {
+            return a * b
         }
     }
 }))  

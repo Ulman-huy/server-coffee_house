@@ -144,6 +144,212 @@ class ProductController {
             });
 
     }
+
+    // [GET] /product/search?q
+    search(req, res, next) {
+        const searchTerm = req.query.q;
+        const regex = new RegExp(searchTerm, 'i');
+        Product.find({ name: regex })
+        .populate('images')
+        .then((products) => {
+            const result = products.map((product) => {
+            const imageIds = product.images;
+            const images = [];
+            return Promise.all(imageIds.map((imageId) => {
+                return Image.findById(imageId)
+                .then((image) => {
+                    if (image) {
+                        images.push(image);
+                    }
+                });
+            })).then(() => {
+                return {
+                    _id: product._id,
+                    type: product.type,
+                    name: product.name,
+                    brand: product.brand,
+                    price: product.price,
+                    star: product.star,
+                    sale: product.sale,
+                    description: product.description,
+                    info: product.info,
+                    src: images.map(image => serverUrl + image.path.slice(11)),
+                    slug: product.slug,
+                };
+            });
+            });
+            return Promise.all(result);
+        })
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: error });
+        });
+      } 
+    getByCategory(req, res, next) {
+       Product.find({ type: req.body.type})
+       .populate('images')
+       .then((products) => {
+           const result = products.map((product) => {
+           const imageIds = product.images;
+           const images = [];
+           return Promise.all(imageIds.map((imageId) => {
+               return Image.findById(imageId)
+               .then((image) => {
+                   if (image) {
+                       images.push(image);
+                   }
+               });
+           })).then(() => {
+               return {
+                   _id: product._id,
+                   type: product.type,
+                   name: product.name,
+                   brand: product.brand,
+                   price: product.price,
+                   star: product.star,
+                   sale: product.sale,
+                   description: product.description,
+                   info: product.info,
+                   src: images.map(image => serverUrl + image.path.slice(11)),
+                   slug: product.slug,
+               };
+           });
+           });
+           return Promise.all(result);
+       })
+       .then((result) => {
+           res.json(result);
+       })
+       .catch((error) => {
+           console.error(error);
+           res.status(500).json({ error: error });
+       });
+    }
+    getByBrand(req, res, next) {
+        Product.find({ brand: req.body.brand})
+        .populate('images')
+        .then((products) => {
+            const result = products.map((product) => {
+            const imageIds = product.images;
+            const images = [];
+            return Promise.all(imageIds.map((imageId) => {
+                return Image.findById(imageId)
+                .then((image) => {
+                    if (image) {
+                        images.push(image);
+                    }
+                });
+            })).then(() => {
+                return {
+                    _id: product._id,
+                    type: product.type,
+                    name: product.name,
+                    brand: product.brand,
+                    price: product.price,
+                    star: product.star,
+                    sale: product.sale,
+                    description: product.description,
+                    info: product.info,
+                    src: images.map(image => serverUrl + image.path.slice(11)),
+                    slug: product.slug,
+                };
+            });
+            });
+            return Promise.all(result);
+        })
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: error });
+        });
+     }
+     getByStar(req, res, next) {
+        Product.find({ star: req.body.star})
+        .populate('images')
+        .then((products) => {
+            const result = products.map((product) => {
+            const imageIds = product.images;
+            const images = [];
+            return Promise.all(imageIds.map((imageId) => {
+                return Image.findById(imageId)
+                .then((image) => {
+                    if (image) {
+                        images.push(image);
+                    }
+                });
+            })).then(() => {
+                return {
+                    _id: product._id,
+                    type: product.type,
+                    name: product.name,
+                    brand: product.brand,
+                    price: product.price,
+                    star: product.star,
+                    sale: product.sale,
+                    description: product.description,
+                    info: product.info,
+                    src: images.map(image => serverUrl + image.path.slice(11)),
+                    slug: product.slug,
+                };
+            });
+            });
+            return Promise.all(result);
+        })
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: error });
+        });
+     }
+    getByPrice(req, res, next) {
+        const minPrice = req.body.minValue
+        const maxPrice = req.body.maxValue
+        Product.find({ price: { $gte: minPrice, $lte: maxPrice }})
+        .populate('images')
+        .then((products) => {
+            const result = products.map((product) => {
+            const imageIds = product.images;
+            const images = [];
+            return Promise.all(imageIds.map((imageId) => {
+                return Image.findById(imageId)
+                .then((image) => {
+                    if (image) {
+                        images.push(image);
+                    }
+                });
+            })).then(() => {
+                return {
+                    _id: product._id,
+                    type: product.type,
+                    name: product.name,
+                    brand: product.brand,
+                    price: product.price,
+                    star: product.star,
+                    sale: product.sale,
+                    description: product.description,
+                    info: product.info,
+                    src: images.map(image => serverUrl + image.path.slice(11)),
+                    slug: product.slug,
+                };
+            });
+            });
+            return Promise.all(result);
+        })
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: error });
+        });
+    }
 }
 
 module.exports = new ProductController;

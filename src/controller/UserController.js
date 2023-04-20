@@ -52,7 +52,6 @@ class UserController {
     updataLocation(req, res, next) {
         User.findOneAndUpdate({ _id: req.body.userId}, req.body)
             .then(user => console.log("Cập nhật thông tin thành công!"))
-            .catch(err => console.log(err))
 
         User.findById(req.body.userId)
             .then(user => res.status(200).json(user)) 

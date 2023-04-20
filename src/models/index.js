@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const slug = require('mongoose-slug-generator');
-
+const ObjectId = require('mongodb').ObjectId
 mongoose.plugin(slug);
 
 const productSchema = new mongoose.Schema({
