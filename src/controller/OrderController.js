@@ -26,7 +26,7 @@ class OrderController {
         let qnt;
 
         Package.findById({ _id: req.params.id })
-        .then(pkg => {
+            .then(pkg => {
                 pkgInfo = pkg
                 pkg.cart.map(product => id_products.push(product.id_product))
                 return id_products
@@ -79,7 +79,6 @@ class OrderController {
                             packages: [...result],
                             cart: pkgInfo.cart,
                         }
-                        console.log(pkg);
                         res.render('package-detail', { package: pkg})
                     })
             })

@@ -1,4 +1,4 @@
-const { User, Product, Image } = require('../models');
+const { User, Product, Image, Package } = require('../models');
 const serverUrl = process.env.SERVER;
 
 class UserController {
@@ -56,7 +56,68 @@ class UserController {
         User.findById(req.body.userId)
             .then(user => res.status(200).json(user)) 
     }
-    
+    // [GET] /user/package
+    getPackage(req, res, next) {
+        Package.find({ userId: req.query.id })
+            .then((pkgs) => {
+                const pkgInfoList = pkgs.map(pkg => pkg.toObject());
+                const id_products = pkgInfoList.reduce((ids, pkg) => {
+                    pkg.cart.forEach(item => ids.push(item.id_product));
+                    return ids;
+                }, []);
+                return Product.find({_id: {$in: id_products}})
+                    .populate('images')
+                    .exec()
+                    .then((products) => {
+                        const result = products.map(async product => {
+                            const imageIds = product.images;
+                            const images = [];
+                            for (let i = 0; i < imageIds.length; i++) {
+                                const image = await Image.findById(imageIds[i]);
+                                if (image) {
+                                    images.push(image);
+                                }
+                            }
+                            const pkg = pkgInfoList.find(pkg => {
+                                return pkg.cart.some(item => item.id_product.toString() === product._id.toString());
+                            });
+                            const qnt = pkg.cart.find(item => item.id_product === product.id).quantity;
+                            return {
+                                _id: product._id,
+                                type: product.type,
+                                name: product.name,
+                                brand: product.brand,
+                                quantity: qnt,
+                                price: product.price,
+                                sale: product.sale,
+                                src: images.map(image => serverUrl + image.path.slice(11)),
+                            };
+                        });
+                        return Promise.all(result)
+                            .then((pkgProducts) => {
+                                return pkgs = pkgInfoList.map((pkg) => {
+                                    const pkgResult = pkgProducts.filter((product) => {
+                                        return pkg.cart.some(item => item.id_product.toString() === product._id.toString());
+                                    });
+                                    console.log(pkgResult);
+                                    return {
+                                        id: pkg._id,
+                                        name: pkg.name,
+                                        phone: pkg.phone,
+                                        status: pkg.status,
+                                        time: pkg.time,
+                                        location: pkg.location,
+                                        message: pkg.message,
+                                        packages: [...pkgResult],
+                                        cart: pkg.cart,
+                                    };
+                                });
+                            })
+                    })
+                })
+            .then(result => res.status(200).json(result))
+            .catch(next);
+    }
 }
 
 module.exports = new UserController;

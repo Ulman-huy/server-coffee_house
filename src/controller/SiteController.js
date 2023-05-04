@@ -48,6 +48,10 @@ class SiteController {
             });
 
     }
+    // [GET] /chat
+    chat(req, res, next) {
+        res.render('chat');
+    }
 }
 
 module.exports = new SiteController;

@@ -170,7 +170,6 @@
         let renderOptionBrand;
         for(let brands of BRAND_LIST ) {
             if(brands.type === $('#type-product').val())
-                console.log(brands.type)
                 renderOptionBrand = brands
         }
         let html = renderOptionBrand.data.map(option => `<option value="${option}">${option}</option>`);

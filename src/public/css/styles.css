@@ -23,7 +23,11 @@ button {
 a {
     text-decoration: none;
 }
-
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 .w-5 {
     width: 5%;
 }
@@ -248,6 +252,71 @@ svg {
     font-weight: 500;
     font-size: 18px;
     text-align: right;
+}
+.chat__wrap {
+    display: flex;
+}
+.list__user {
+    width: 300px;
+    border-left: 1px solid #ddd;
+    padding: 8px;
+    min-height: calc(100vh - 60px);
+    overflow: hidden scroll;
+    border-right: 3px solid #d4bdde;
+}
+.chat__content--head .user--item,
+.list__user .user--item {
+    width: 100%;
+    display: flex;
+    padding: 6px 32px;
+    transition: all .25s ease;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.list__user .user--item:hover {
+    background-color: #d8d8d8;
+}
+.chat__content--head .user--item .image,
+.list__user .user--item > span:first-child {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+.chat__content--head .user--item .image img,
+.list__user .user--item > span img {
+    width: 100%;    
+    height: 100%;
+}
+.chat__content {
+    width: calc(100% - 300px);
+    position: relative;
+}
+.chat__content--head  {
+    border-bottom: 2px solid #d4bdde;
+    box-shadow: 0 3px 3px #ddd;
+}
+.chat__content--input {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px 20px;
+}
+.chat__content--input input {
+    width: 100%;
+    border: none;
+    border-radius: 50px;
+    background-color: #ddd;
+    outline: none;
+    font-size: 15px;
+    padding: 6px 16px;
+}
+.chat__content--input button {
+    padding: 0 16px;
 }
 @keyframes animate {
     from { 
