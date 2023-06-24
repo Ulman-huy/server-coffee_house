@@ -11,7 +11,6 @@ const productSchema = new mongoose.Schema(
     star: { type: Number, default: 5 },
     like: { type: Boolean, default: false },
     sale: { type: Number, default: 0 },
-    brand: { type: String },
     description: { type: String },
     sold: { type: Number, default: 0 },
     info: { type: String },
@@ -78,7 +77,12 @@ const newsSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+const supplierSchema = new mongoose.Schema({
+  name: { type: String },
+  note: { type: String },
+  description: { type: String },
 
+});
 const Product = mongoose.model("coffee_house", productSchema);
 const Image = mongoose.model("image", imageSchema);
 const User = mongoose.model("user", userSchema);
