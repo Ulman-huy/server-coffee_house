@@ -1,0 +1,50 @@
+{{#if success}}
+  <lottie-player
+    src="https://lottie.host/7a406267-721a-49ab-8be1-006a66b5b7c8/vTL6CUilwr.json"
+    background="transparent"
+    speed="1"
+    style="width: 100px; height: 100px;"
+    autoplay
+  ></lottie-player>
+  <script>
+    setTimeout(() => {
+    {{! redirect client }}
+    }, 5000)
+  </script>
+{{/if}}
+
+{{#if error}}
+  <lottie-player
+    src="https://lottie.host/a6f86b6f-74a9-4940-a22d-76ee80e00b32/Sk8G3NMZMd.json"
+    background="transparent"
+    speed="1"
+    style="width: 100px; height: 100px;"
+    autoplay
+  ></lottie-player>
+{{/if}}
+
+{{#if not_found}}
+  <lottie-player
+    src="https://lottie.host/b0ad8e9b-1a6c-4129-8a91-0b4a0d5c3ae0/NSEQfx2nPa.json"
+    background="transparent"
+    speed="1"
+    style="width: 100px; height: 100px;"
+    autoplay
+  ></lottie-player>
+{{/if}}
+
+{{#if verified}}
+  <lottie-player
+    src="https://lottie.host/7a406267-721a-49ab-8be1-006a66b5b7c8/vTL6CUilwr.json"
+    background="transparent"
+    speed="1"
+    style="width: 100px; height: 100px;"
+    autoplay
+  ></lottie-player>
+  <script>
+    setTimeout(() => {
+    {{! redirect client }}
+    }, 5000)
+  </script>
+{{/if}}
+<h1>{{verifyText status}}</h1>

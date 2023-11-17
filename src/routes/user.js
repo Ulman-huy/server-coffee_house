@@ -1,9 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const UserController = require('../controller/UserController')
+const UserController = require("../controller/UserController");
+const { checkToken } = require("../middleware/checkToken");
 
-router.post('/getCart', UserController.getCart)
-router.get('/getPackage', UserController.getPackage)
-router.post('/update-location', UserController.updataLocation)
+router.post("/getCart", checkToken, UserController.getCart);
+router.get("/me", checkToken, UserController.getMe);
+router.get("/getPackage", checkToken, UserController.getPackage);
+router.post("/update-location", checkToken, UserController.updataLocation);
 
 module.exports = router;
