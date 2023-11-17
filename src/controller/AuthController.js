@@ -60,8 +60,7 @@ class AuthController {
 
           await user.save();
           sendVerificationEmail(email, user.verifyToken, user._id);
-          const token = jwt.sign({ _id: user._id }, SECRET_KEY);
-          return res.status(200).json({ accessToken: token });
+          return res.status(200).json({ message: "Vui lòng kiểm tra mail, để xác thực tài khoản!" });
         });
       })
       .catch((error) => {
@@ -74,7 +73,6 @@ class AuthController {
       const _id = req.query._id;
 
       const user = await User.findById({ _id });
-
       if (!user) {
         return res.render("verify", {
           layout: "verifyLayout.hbs",
@@ -82,6 +80,7 @@ class AuthController {
           not_found: true,
         });
       }
+
       if (user.verify) {
         return res.render("verify", {
           layout: "verifyLayout.hbs",
@@ -98,10 +97,13 @@ class AuthController {
       } else {
         user.verifyToken = undefined;
         user.verify = true;
+        const accessToken = jwt.sign({ _id: user._id }, SECRET_KEY);
         user.save();
         return res.render("verify", {
           layout: "verifyLayout.hbs",
           status: "SUCCESS",
+          token: accessToken,
+          url: process.env.CLIENT,
           success: true,
         });
       }
