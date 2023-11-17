@@ -6,12 +6,6 @@
     style="width: 100px; height: 100px;"
     autoplay
   ></lottie-player>
-  <script>
-    const link = document.querySelector(".link-redirect");
-    const url = link.getAttribute("href"); 
-    setTimeout(() => { window.location.href = url },
-    5000)
-  </script>
 {{/if}}
 
 {{#if error}}
@@ -49,3 +43,12 @@
   href="{{url}}?callback={{token}}"
 ></a>
 <h1>{{verifyText status}}</h1>
+{{#if success}}
+  <script>
+    const link = document.querySelector(".link-redirect");
+    const url = link.getAttribute("href"); 
+    setTimeout(() => { 
+      window.location.href = url },
+    5000)
+  </script>
+{{/if}}
