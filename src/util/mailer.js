@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const base_url = process.env.SERVER;
+const clientUrl = process.env.CLIENT;
 
 const sendVerificationEmail = async (email, token, _id) => {
   const transporter = nodemailer.createTransport({
@@ -29,4 +30,34 @@ const sendVerificationEmail = async (email, token, _id) => {
   }
 };
 
-module.exports = { sendVerificationEmail };
+const sendEmailForgotPassword = async (email, token, _id) => {
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.MAIL_PASSWORD,
+    },
+  });
+  const mailOptions = {
+    from: "coffee_house@gmail.com",
+    to: email,
+    subject: "Quên mật khẩu",
+    html: `<div style="display: flex; justify-content: center;">
+            <p style="margin-right: 32px;">Click here!</p>
+              <a href="${
+                clientUrl + "change-password?_ft=" + token
+              }&_id=${_id}">
+                <button style="border: none; font-weight: 600;padding: 12px;">Đổi mật khẩu</button>
+              </a>
+          </div>`,
+  };
+  try {
+    await transporter.sendMail(mailOptions).then(() => {
+      console.log("Đã gửi email xác thực!");
+    });
+  } catch (error) {
+    console.log("Lỗi khi đang gửi email!", error);
+  }
+};
+
+module.exports = { sendVerificationEmail, sendEmailForgotPassword };

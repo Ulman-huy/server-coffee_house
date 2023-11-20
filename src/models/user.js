@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema(
     location: { type: String, default: "" },
     verifyToken: { type: String },
     verify: { type: Boolean },
+    forgotToken: {
+      type: String,
+    },
   },
   {
     timestamps: true,

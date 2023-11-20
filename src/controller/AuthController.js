@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const SECRET_KEY = process.env.SECRET_KEY;
 const { cryptPassword, comparePassword } = require("../util/hashPassword");
 const { sendVerificationEmail } = require("../util/mailer");
+const { randomToken } = require("../util");
 
 class AuthController {
   // [GET] /product
@@ -17,7 +18,7 @@ class AuthController {
         return res.status(401).json({ message: "Vui lòng nhập đủ thông tin!" });
       }
       const user = await User.findOne({ email });
-      if (!user) {
+      if (!user || !user.verify) {
         return res.status(404).json({ message: "Tài khoản không tồn tại!" });
       }
       comparePassword(password, user.password, (err, isPasswordMatch) => {
@@ -53,14 +54,14 @@ class AuthController {
             email,
             username,
             password: bcryptPassword,
-            verifyToken:
-              Math.random().toString(36).slice(2) +
-              Math.random().toString(36).slice(2),
+            verifyToken: randomToken(),
           });
 
           await user.save();
           sendVerificationEmail(email, user.verifyToken, user._id);
-          return res.status(200).json({ message: "Vui lòng kiểm tra mail, để xác thực tài khoản!" });
+          return res.status(200).json({
+            message: "Vui lòng kiểm tra mail, để xác thực tài khoản!",
+          });
         });
       })
       .catch((error) => {
@@ -109,6 +110,25 @@ class AuthController {
       }
     } catch (error) {
       return res.status(500).json("error");
+    }
+  }
+  async registerGoogle(req, res) {
+    try {
+      const { email, username, avatar, verify } = req.body;
+
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        const newUser = new User({ email, username, avatar, verify: verify });
+        newUser.save();
+        const token = jwt.sign({ _id: newUser._id }, SECRET_KEY);
+        return res.status(200).json({ accessToken: token });
+      }
+
+      const token = jwt.sign({ _id: user._id }, SECRET_KEY);
+      return res.status(200).json({ accessToken: token });
+    } catch (error) {
+      return res.status(500).json({ message: "error" });
     }
   }
 }
