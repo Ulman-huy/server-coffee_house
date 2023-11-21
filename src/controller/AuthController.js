@@ -115,16 +115,17 @@ class AuthController {
   async registerSocials(req, res) {
     try {
       const { email, username, avatar, verify } = req.body;
-
       const user = await User.findOne({ email });
-
       if (!user) {
         const newUser = new User({ email, username, avatar, verify: verify });
         newUser.save();
         const token = jwt.sign({ _id: newUser._id }, SECRET_KEY);
         return res.status(200).json({ accessToken: token });
       }
-
+      if (!user.avatar) {
+        user.avatar = avatar;
+        await user.save();
+      }
       const token = jwt.sign({ _id: user._id }, SECRET_KEY);
       return res.status(200).json({ accessToken: token });
     } catch (error) {
