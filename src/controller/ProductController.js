@@ -8,7 +8,7 @@ const {
 
 const serverUrl = process.env.SERVER;
 class ProductController {
-  // [GET] api
+  // [GET] all
   index(req, res, next) {
     Product.find()
       .populate("images")

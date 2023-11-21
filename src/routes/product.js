@@ -3,7 +3,7 @@ const router = express.Router();
 const ProductController = require('../controller/ProductController')
 const upload = require('../util/multer');
 
-router.get('/api' ,ProductController.index)
+router.get('/all' ,ProductController.index)
 router.get('/search' ,ProductController.search)
 router.post('/getByCategory' ,ProductController.getByCategory)
 router.post('/getByPrice' ,ProductController.getByPrice)

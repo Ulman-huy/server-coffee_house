@@ -112,7 +112,7 @@ class AuthController {
       return res.status(500).json("error");
     }
   }
-  async registerGoogle(req, res) {
+  async registerSocials(req, res) {
     try {
       const { email, username, avatar, verify } = req.body;
 
