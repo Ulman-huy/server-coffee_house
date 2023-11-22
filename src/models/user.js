@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
     forgotToken: {
       type: String,
     },
+    rules: {
+      type: String,
+      default: "USER",
+    },
   },
   {
     timestamps: true,
