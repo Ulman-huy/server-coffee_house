@@ -16,6 +16,7 @@ const productSchema = new mongoose.Schema(
     info: { type: String },
     images: { type: Array },
     date: { type: Date },
+    status: {type: String, default: "ACTIVE" },
     slug: { type: String, slug: "name" },
   },
   {

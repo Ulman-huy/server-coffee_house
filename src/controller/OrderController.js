@@ -2,10 +2,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const { Package } = require("../models/package");
 const { Product } = require("../models/product");
 const { Image } = require("../models/image");
-const {
-  multipleMongooseToObject,
-  mongooseToObject,
-} = require("../util/mongoose");
+const { multipleMongooseToObject } = require("../util/mongoose");
 const serverUrl = process.env.SERVER;
 
 class OrderController {

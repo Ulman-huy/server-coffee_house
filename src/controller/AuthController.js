@@ -6,10 +6,6 @@ const { sendVerificationEmail } = require("../util/mailer");
 const { randomToken } = require("../util");
 
 class AuthController {
-  // [GET] /product
-  index(req, res, next) {
-    res.render("home");
-  }
   // [POST]/login
   async login(req, res) {
     try {
