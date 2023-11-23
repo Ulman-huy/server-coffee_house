@@ -1,17 +1,15 @@
-const multer = require('multer');
-const uuid = require('uuid');
-const path = require('path');
+const multer = require("multer");
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './src/public/images');
-      },
-      filename: function (req, file, cb) {
-        const extension = path.extname(file.originalname);
-        const filename = uuid.v4() + extension;
+  destination: function (req, file, cb) {
+    cb(null, "uploads");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    file.filename = uniqueSuffix + "-" + file.originalname;
+    cb(null, file.filename);
+  },
+});
 
-        cb(null, filename);
-      }
-})
-
-module.exports =  multer({ storage: storage })
+const upload = multer({ storage: storage });
+module.exports = upload;

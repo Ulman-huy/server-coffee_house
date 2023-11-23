@@ -29,6 +29,7 @@ app.use(express.json());
 app.use(flash());
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/image", express.static("uploads"));
 
 app.engine(
   "hbs",
