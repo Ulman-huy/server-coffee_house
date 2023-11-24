@@ -9,12 +9,6 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const path = require("path");
 const port = process.env.PORT || 8888;
-const { initializeApp } = require("firebase/app");
-const { firebaseConfig } = require("./config/firebase");
-// Import the functions you need from the SDKs you need
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-initializeApp(firebaseConfig);
 
 const app = express();
 app.use(express.urlencoded());
