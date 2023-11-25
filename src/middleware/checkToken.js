@@ -20,6 +20,7 @@ const checkToken = async (req, res, next) => {
     next();
   } catch (error) {
     console.log("Token invalid!", error);
+    return res.status(401).json("Vui lòng đăng nhập vào hệ thống!")
   }
 };
 
