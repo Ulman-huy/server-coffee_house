@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema(
     description: { type: String },
     sold: { type: Number, default: 0 },
     info: { type: String },
-    images: { type: Array },
+    images: { type: String },
     date: { type: Date },
     status: {type: String, default: "ACTIVE" },
     slug: { type: String, slug: "name" },
