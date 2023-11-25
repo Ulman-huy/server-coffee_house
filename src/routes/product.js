@@ -13,7 +13,7 @@ router.post("/getByBrand", ProductController.getByBrand);
 router.get("/api/:slug", ProductController.getProduct);
 router.post("/edit", checkToken, ProductController.edit);
 router.delete("/:_id", ProductController.delete);
-router.get("/create", checkToken, ProductController.create);
+router.post("/create", checkToken, ProductController.create);
 router.post("/store", upload.array("images"), ProductController.store);
 router.get("/", ProductController.product);
 
