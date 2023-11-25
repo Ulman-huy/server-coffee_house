@@ -4,7 +4,23 @@ const { Product } = require("../models/product");
 const serverUrl = process.env.SERVER;
 class ProductController {
   // [GET] all
-  index(req, res, next) {}
+  async index(req, res) {
+    try {
+      console.log("all");
+      const { page = 1, limit = 10 } = req.query;
+      const products = await Product.find({ status: "ACTIVE" });
+      const data = products.slice(page * limit - limit, page * limit);
+      return res.status(200).json({
+        data,
+        limit: limit,
+        page,
+        totalPage: Math.ceil(products.length / limit),
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json("error");
+    }
+  }
 
   // [GET] /product/create
   async create(req, res, next) {
@@ -75,9 +91,7 @@ class ProductController {
   }
 
   // [GET] /product
-  product(req, res, next) {
-    
-  }
+  product(req, res, next) {}
 
   // [POST] /product/store
   store(req, res, next) {}
