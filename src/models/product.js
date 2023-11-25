@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema(
     brand: { type: String, default: "no brand" },
     price: { type: Number, required: true },
     star: { type: Number, default: 5 },
-    like: { type: Boolean, default: false },
+    like: { type: Number, default: 0 },
     sale: { type: Number, default: 0 },
     description: { type: String },
     sold: { type: Number, default: 0 },
