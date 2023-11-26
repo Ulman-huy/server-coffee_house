@@ -10,7 +10,7 @@ router.post("/store", upload.array("images"), ProductController.store);
 router.post("/edit", checkToken, ProductController.edit);
 router.get("/all", checkToken, ProductController.index);
 router.post("/create", checkToken, ProductController.create);
-router.delete("/:_id", checkToken, ProductController.changeStatus);
+router.put("/:_id", checkToken, ProductController.changeStatus);
 
 router.get("/", ProductController.product);
 
