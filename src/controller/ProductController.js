@@ -1,7 +1,6 @@
 require("dotenv").config();
 const { Product } = require("../models/product");
 
-const serverUrl = process.env.SERVER;
 class ProductController {
   // [GET] all
   async index(req, res) {
@@ -106,17 +105,6 @@ class ProductController {
       return res.status(500).json("error");
     }
   }
-
-  // [GET] /product
-  product(req, res, next) {}
-
-  // [POST] /product/store
-  store(req, res, next) {}
-  // [GET] /product/product/api/:id
-  getProduct(req, res, next) {}
-
-  // [GET] /product/search?q
-  search(req, res, next) {}
 }
 
 module.exports = new ProductController();
