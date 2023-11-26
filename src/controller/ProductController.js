@@ -46,7 +46,7 @@ class ProductController {
     }
   }
 
-  // [GET] /product/edit
+  // [POST] /product/edit
   async edit(req, res, next) {
     try {
       const user = req.user;
@@ -71,7 +71,7 @@ class ProductController {
   }
 
   // [DELETE] /product/product/:id/delete
-  async delete(req, res, next) {
+  async delete(req, res) {
     try {
       const user = req.user;
       if (user.rules != "ADMIN") {
@@ -79,7 +79,7 @@ class ProductController {
           message: "Tài khoản không được cấp phép cho chức năng này!",
         });
       }
-      const { _id } = req.body;
+      const { _id } = req.params;
       const product = await Product.findById({ _id });
       product.status = "DELETED";
       product.save();
