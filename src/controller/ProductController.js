@@ -7,7 +7,7 @@ class ProductController {
   async index(req, res) {
     try {
       const { page = 1, limit = 10 } = req.query;
-      const products = await Product.find({ status: "ACTIVE" });
+      const products = await Product.find({ status: { $ne: "DELETED" } });
       const data = products.slice(page * limit - limit, page * limit);
       return res.status(200).json({
         data,
@@ -73,7 +73,7 @@ class ProductController {
   async delete(req, res) {
     try {
       const user = req.user;
-      console.log({user});
+      console.log({ user });
       if (user.role != "ADMIN") {
         return res.status(500).json({
           message: "Tài khoản không được cấp phép cho chức năng này!",
