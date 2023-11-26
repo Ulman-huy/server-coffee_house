@@ -6,14 +6,31 @@ class ProductController {
   // [GET] all
   async index(req, res) {
     try {
-      const { page = 1, limit = 10 } = req.query;
-      const products = await Product.find({ status: { $ne: "DELETED" } });
-      const data = products.slice(page * limit - limit, page * limit);
+      const { page = 1, limit = 10, type, brand, name } = req.query;
+
+      const query = { status: { $ne: "DELETED" } };
+      if (type) {
+        query.type = type;
+      }
+      if (brand) {
+        query.brand = brand;
+      }
+      if (name) {
+        query.name = { $regex: new RegExp(name, "i") };
+      }
+
+      const products = await Product.find(query)
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .exec();
+      const total = await Product.countDocuments(query).exec();
+
       return res.status(200).json({
-        data,
-        limit: limit,
+        data: products,
+        limit,
         page,
-        totalPage: Math.ceil(products.length / limit),
+        total,
+        totalPage: Math.ceil(total / limit),
       });
     } catch (error) {
       console.log(error);
