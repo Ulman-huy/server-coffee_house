@@ -26,7 +26,7 @@ class ProductController {
   async create(req, res, next) {
     try {
       const user = req.user;
-      if (user.rules != "ADMIN") {
+      if (user.role != "ADMIN") {
         return res.status(500).json({
           message: "Tài khoản không được cấp phép cho chức năng này!",
         });
@@ -50,7 +50,7 @@ class ProductController {
   async edit(req, res, next) {
     try {
       const user = req.user;
-      if (user.rules != "ADMIN") {
+      if (user.role != "ADMIN") {
         return res.status(500).json({
           message: "Tài khoản không được cấp phép cho chức năng này!",
         });
@@ -74,7 +74,7 @@ class ProductController {
   async delete(req, res) {
     try {
       const user = req.user;
-      if (user.rules != "ADMIN") {
+      if (user.role != "ADMIN") {
         return res.status(500).json({
           message: "Tài khoản không được cấp phép cho chức năng này!",
         });
