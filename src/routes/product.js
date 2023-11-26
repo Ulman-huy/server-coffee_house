@@ -8,9 +8,9 @@ router.get("/search", ProductController.search);
 router.post("/store", upload.array("images"), ProductController.store);
 router.post("/edit", checkToken, ProductController.edit);
 
-router.get("/all", ProductController.index);
+router.get("/all", checkToken, ProductController.index);
 router.post("/create", checkToken, ProductController.create);
-router.delete("/:_id", ProductController.delete);
+router.delete("/:_id", checkToken, ProductController.delete);
 router.get("/", ProductController.product);
 
 module.exports = router;
