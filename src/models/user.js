@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema(
     forgotToken: {
       type: String,
     },
-    rules: {
+    role: {
       type: String,
       default: "USER",
     },
