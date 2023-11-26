@@ -11,6 +11,7 @@ router.post("/edit", checkToken, ProductController.edit);
 router.get("/all", checkToken, ProductController.index);
 router.post("/create", checkToken, ProductController.create);
 router.delete("/:_id", checkToken, ProductController.delete);
+router.put("/stop/:_id", checkToken, ProductController.stop);
 router.get("/", ProductController.product);
 
 module.exports = router;

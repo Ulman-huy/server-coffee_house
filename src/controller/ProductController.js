@@ -90,6 +90,26 @@ class ProductController {
     }
   }
 
+  // [PUT] /product/stop/:id
+  async stop(req, res) {
+    try {
+      const user = req.user;
+      if (user.role != "ADMIN") {
+        return res.status(500).json({
+          message: "Tài khoản không được cấp phép cho chức năng này!",
+        });
+      }
+      const { _id } = req.params;
+      const product = await Product.findById({ _id });
+      product.status = "STOP";
+      product.save();
+      return res.status(201).json({ message: "OK" });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json("error");
+    }
+  }
+
   // [GET] /product
   product(req, res, next) {}
 
