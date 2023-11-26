@@ -69,29 +69,8 @@ class ProductController {
     }
   }
 
-  // [DELETE] /product/:id
-  async delete(req, res) {
-    try {
-      const user = req.user;
-      console.log({ user });
-      if (user.role != "ADMIN") {
-        return res.status(500).json({
-          message: "Tài khoản không được cấp phép cho chức năng này!",
-        });
-      }
-      const { _id } = req.params;
-      const product = await Product.findById({ _id });
-      product.status = "DELETED";
-      product.save();
-      return res.status(201).json({ message: "OK" });
-    } catch (err) {
-      console.log(err);
-      return res.status(500).json("error");
-    }
-  }
-
-  // [PUT] /product/stop/:id
-  async stop(req, res) {
+  // [PUT] /product/:id
+  async changeStatus(req, res) {
     try {
       const user = req.user;
       if (user.role != "ADMIN") {
@@ -99,9 +78,10 @@ class ProductController {
           message: "Tài khoản không được cấp phép cho chức năng này!",
         });
       }
+      const { status } = req.body;
       const { _id } = req.params;
       const product = await Product.findById({ _id });
-      product.status = "STOP";
+      product.status = status;
       product.save();
       return res.status(201).json({ message: "OK" });
     } catch (err) {
@@ -120,10 +100,6 @@ class ProductController {
 
   // [GET] /product/search?q
   search(req, res, next) {}
-  getByCategory(req, res, next) {}
-  getByBrand(req, res, next) {}
-  getByStar(req, res, next) {}
-  getByPrice(req, res, next) {}
 }
 
 module.exports = new ProductController();
