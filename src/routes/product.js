@@ -8,5 +8,6 @@ router.post("/edit", checkToken, ProductController.edit);
 router.get("/all", ProductController.index);
 router.post("/create", checkToken, ProductController.create);
 router.put("/:_id", checkToken, ProductController.changeStatus);
+router.get("/:_id", ProductController.detail);
 
 module.exports = router;

@@ -105,6 +105,19 @@ class ProductController {
       return res.status(500).json("error");
     }
   }
+  async detail(req, res) {
+    try {
+      const { _id } = req.params;
+      const product = await Product.findById({ _id });
+      if (!product) {
+        return res.status(404).json({ message: "Không tìm thấy sản phẩm!" });
+      }
+      return res.status(200).json({ data: product });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: "error" });
+    }
+  }
 }
 
 module.exports = new ProductController();
