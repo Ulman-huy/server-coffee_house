@@ -45,6 +45,9 @@ class SiteController {
       return res.status(500).json({ message: "error" });
     }
   }
+  getup(req, res) {
+    return res.status(200).json({ message: "OK" });
+  }
 }
 // giveCurrentDateTime
 module.exports = new SiteController();
