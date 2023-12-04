@@ -5,7 +5,16 @@ class ProductController {
   // [GET] all
   async index(req, res) {
     try {
-      const { page = 1, limit = 10, type, brand, name } = req.query;
+      const {
+        page = 1,
+        limit = 10,
+        type,
+        brand,
+        name,
+        star,
+        min,
+        max,
+      } = req.query;
 
       const query = { status: { $ne: "DELETED" } };
       if (type) {
@@ -17,7 +26,16 @@ class ProductController {
       if (name) {
         query.name = { $regex: new RegExp(name, "i") };
       }
-
+      if (star) {
+        query.star = star;
+      }
+      if (min !== undefined) {
+        query.price = { $gte: parseFloat(min) };
+      }
+      
+      if (max !== undefined) {
+        query.price = { ...query.price, $lte: parseFloat(max) };
+      }
       const products = await Product.find(query)
         .skip((page - 1) * limit)
         .limit(limit)
