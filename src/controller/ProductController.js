@@ -211,6 +211,16 @@ class ProductController {
   async likeProduct(req, res) {
     try {
       const user = req.user;
+      const { _id, type } = res.body;
+
+      if (type == "LIKE") {
+        user.like.push(_id);
+      }
+      if (type == "DISLIKE") {
+        user.like.filter((item) => item != _id);
+      }
+      user.save();
+      return res.status(200).json({ message: "OK" });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: "error" });
