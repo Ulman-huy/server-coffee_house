@@ -41,9 +41,10 @@ class ProductController {
         .limit(limit)
         .exec();
       const total = await Product.countDocuments(query).exec();
+      const result = products.map((item) => ({ ...item, like: item.length }));
 
       return res.status(200).json({
-        data: products.map((item) => ({ ...item, like: item.length })),
+        data: result,
         limit,
         page,
         total,
