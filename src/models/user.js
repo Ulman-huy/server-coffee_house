@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
@@ -6,13 +7,17 @@ const userSchema = new mongoose.Schema(
     email: { type: String, require: true },
     password: { type: String, require: true },
     cart: [
-      { product_id: { type: Number }, quantity: { type: Number, default: 1 } },
+      {
+        product_id: { type: ObjectId },
+        quantity: { type: Number, default: 1 },
+      },
     ],
     phone: { type: String, default: "" },
     avatar: { type: String, default: "" },
     location: { type: String, default: "" },
     verifyToken: { type: String },
     verify: { type: Boolean },
+    like: { type: Array, default: [] },
     forgotToken: {
       type: String,
     },

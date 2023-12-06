@@ -32,7 +32,7 @@ class ProductController {
       if (min !== undefined) {
         query.price = { $gte: parseFloat(min) };
       }
-      
+
       if (max !== undefined) {
         query.price = { ...query.price, $lte: parseFloat(max) };
       }
@@ -43,7 +43,7 @@ class ProductController {
       const total = await Product.countDocuments(query).exec();
 
       return res.status(200).json({
-        data: products,
+        data: { ...products, like: products.like.length },
         limit,
         page,
         total,
@@ -133,6 +133,86 @@ class ProductController {
       return res.status(200).json({ data: product });
     } catch (err) {
       console.log(err);
+      return res.status(500).json({ message: "error" });
+    }
+  }
+  async addProduct(req, res) {
+    try {
+      const user = req.user;
+      const { _id, type, quantity } = req.body;
+
+      if (type === "PLUS") {
+        const productExist = user.cart.find((item) => item.product_id === _id);
+        if (productExist) {
+          const newCart = user.cart.map((item) => {
+            if (item.product_id === _id) {
+              return {
+                ...item,
+                quantity: (item.quantity += quantity),
+              };
+            }
+            return item;
+          });
+          user.cart = newCart;
+        } else {
+          user.cart.push({ product_id: _id, quantity: quantity });
+        }
+        user.save();
+        return res.status(200).json({ message: "OK" });
+      }
+      if (type === "MINUS") {
+        const productExist = user.cart.find((item) => item.product_id === _id);
+        if (productExist) {
+          const newCart = user.cart
+            .map((item) => {
+              if (item.product_id === _id) {
+                return {
+                  ...item,
+                  quantity: (item.quantity -= quantity),
+                };
+              }
+              return item;
+            })
+            .filter((item) => item.quantity > 0);
+          user.cart = newCart;
+          user.save();
+          return res.status(200).json({ message: "OK" });
+        } else {
+          return res
+            .status(400)
+            .json({ message: "Không tìm thấy sản phẩm trong giỏ hàng!" });
+        }
+      }
+    } catch (error) {
+      console.log(err);
+      return res.status(500).json({ message: "error" });
+    }
+  }
+  async getCart(req, res) {
+    try {
+      const user = req.user;
+
+      const productPromises = user.cart.map(async (element) => {
+        const product = await Product.findById({ _id: element._id }).select(
+          "-description -info"
+        );
+        return product;
+      });
+
+      const products = await Promise.all(productPromises);
+
+      return res.status(200).json(products);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "error" });
+    }
+  }
+
+  async likeProduct(req, res) {
+    try {
+      const user = req.user;
+    } catch (error) {
+      console.log(error);
       return res.status(500).json({ message: "error" });
     }
   }

@@ -9,14 +9,14 @@ const productSchema = new mongoose.Schema(
     brand: { type: String, default: "no brand" },
     price: { type: Number, required: true },
     star: { type: Number, default: 5 },
-    like: { type: Number, default: 0 },
+    like: { type: Array, default: [] },
     sale: { type: Number, default: 0 },
     description: { type: String },
     sold: { type: Number, default: 0 },
     info: { type: String },
     images: { type: String },
     date: { type: Date },
-    status: {type: String, default: "ACTIVE" },
+    status: { type: String, default: "ACTIVE" },
     slug: { type: String, slug: "name" },
   },
   {
@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-const Product = mongoose.model("coffee_house", productSchema);
+const Product = mongoose.model("product", productSchema);
 module.exports = {
   Product: Product,
 };
