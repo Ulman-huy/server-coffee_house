@@ -7,9 +7,8 @@ const packageSchema = new mongoose.Schema(
     phone: { type: String },
     location: { type: String },
     message: { type: String },
-    status: { type: String, default: "Chờ xử lý..." },
+    status: { type: String, default: "PENDING" },
     cart: [],
-    time: { type: String, default: new Date() },
   },
   {
     timestamps: true,

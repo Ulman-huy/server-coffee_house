@@ -5,16 +5,32 @@ const { multipleMongooseToObject } = require("../util/mongoose");
 const serverUrl = process.env.SERVER;
 
 class OrderController {
-  getAllPackage(req, res, next) {
-   
+  getAllPackage(req, res) {}
+
+  async getAllPackageByUserId(req, res) {
+    try {
+      const user = req.user;
+      const packages = await Package.find({ userId: user._id });
+      return res.status(200).json(packages);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "error" });
+    }
   }
-  // [POST] /user/new-package
-  newPackage(req, res, next) {
-    
+  // [POST] /new-package
+  newPackage(req, res) {
+    try {
+      const newPackage = new Package({ ...res.body });
+      if (newPackage) {
+        return res.status(201).json(newPackage);
+      }
+      return res.status(500).json({ message: "error" });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "error" });
+    }
   }
-  getPackageDetail(req, res, next) {
-   
-  }
+  getPackageDetail(req, res, next) {}
 }
 
 module.exports = new OrderController();
