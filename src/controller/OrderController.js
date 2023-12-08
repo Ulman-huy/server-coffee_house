@@ -22,7 +22,7 @@ class OrderController {
     try {
       const newPackage = new Package({ ...req.body });
       if (newPackage) {
-        return res.status(201).json(newPackage);
+        return res.status(201).json({ message: "OK" });
       }
       return res.status(500).json({ message: "error" });
     } catch (error) {
