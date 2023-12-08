@@ -158,7 +158,7 @@ class ProductController {
           user.cart.push({ product_id: _id, quantity: quantity });
         }
         user.save();
-        return res.status(200).json({ message: "OK" });
+        return res.status(200).json({ message: "OK", user });
       }
       if (type === "MINUS") {
         const productExist = user.cart.find((item) => item.product_id.toString() === _id);
@@ -166,7 +166,7 @@ class ProductController {
         if (productExist) {
           const newCart = user.cart
             .map((item) => {
-              if (item.product_id === _id) {
+              if (item.product_id.toString() === _id) {
                 return {
                   ...item,
                   quantity: (item.quantity -= quantity),
@@ -177,7 +177,7 @@ class ProductController {
             .filter((item) => item.quantity > 0);
           user.cart = newCart;
           user.save();
-          return res.status(200).json({ message: "OK" });
+          return res.status(200).json({ message: "OK", user });
         } else {
           return res
             .status(400)
