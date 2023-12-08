@@ -21,7 +21,10 @@ class OrderController {
   newPackage(req, res) {
     try {
       const newPackage = new Package({ ...req.body });
+      const user = req.user;
       if (newPackage) {
+        user.cart = [];
+        user.save();
         return res.status(201).json({ message: "OK" });
       }
       return res.status(500).json({ message: "error" });
