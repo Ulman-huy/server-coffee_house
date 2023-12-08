@@ -12,6 +12,6 @@ router.post("/add-product", checkToken, ProductController.addProduct);
 router.post("/like", checkToken, ProductController.likeProduct);
 router.put("/:_id", checkToken, ProductController.changeStatus);
 router.get("/:_id", ProductController.detail);
-router.delete("/remove-cart:/_id", checkToken, ProductController.removeProductInCart);
+router.delete("/remove-cart/:_id", checkToken, ProductController.removeProductInCart);
 
 module.exports = router;
