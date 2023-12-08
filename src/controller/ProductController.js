@@ -162,7 +162,7 @@ class ProductController {
       }
       if (type === "MINUS") {
         const productExist = user.cart.find((item) => item.product_id.toString() === _id);
-        console.log({productExist}, user.cart);
+        
         if (productExist) {
           const newCart = user.cart
             .map((item) => {
