@@ -142,7 +142,7 @@ class ProductController {
       const { _id, type, quantity } = req.body;
 
       if (type === "PLUS") {
-        const productExist = user.cart.find((item) => item.product_id === _id);
+        const productExist = user.cart.find((item) => item.product_id.toString() === _id);
         if (productExist) {
           const newCart = user.cart.map((item) => {
             if (item.product_id === _id) {
@@ -161,7 +161,8 @@ class ProductController {
         return res.status(200).json({ message: "OK" });
       }
       if (type === "MINUS") {
-        const productExist = user.cart.find((item) => item.product_id === _id);
+        const productExist = user.cart.find((item) => item.product_id.toString() === _id);
+        console.log({productExist}, user.cart);
         if (productExist) {
           const newCart = user.cart
             .map((item) => {
