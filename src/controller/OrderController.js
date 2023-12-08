@@ -25,6 +25,7 @@ class OrderController {
       if (newPackage) {
         user.cart = [];
         user.save();
+        newPackage.save();
         return res.status(201).json({ message: "OK" });
       }
       return res.status(500).json({ message: "error" });
