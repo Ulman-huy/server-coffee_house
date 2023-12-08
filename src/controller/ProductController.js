@@ -142,7 +142,9 @@ class ProductController {
       const { _id, type, quantity } = req.body;
 
       if (type === "PLUS") {
-        const productExist = user.cart.find((item) => item.product_id.toString() === _id);
+        const productExist = user.cart.find(
+          (item) => item.product_id.toString() === _id
+        );
         if (productExist) {
           const newCart = user.cart.map((item) => {
             if (item.product_id.toString() === _id) {
@@ -161,8 +163,10 @@ class ProductController {
         return res.status(200).json({ message: "OK" });
       }
       if (type === "MINUS") {
-        const productExist = user.cart.find((item) => item.product_id.toString() === _id);
-        
+        const productExist = user.cart.find(
+          (item) => item.product_id.toString() === _id
+        );
+
         if (productExist) {
           const newCart = user.cart
             .map((item) => {
@@ -226,6 +230,23 @@ class ProductController {
       if (type == "DISLIKE") {
         user.like.filter((item) => item != _id);
       }
+      user.save();
+      return res.status(200).json({ message: "OK" });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "error" });
+    }
+  }
+
+  async removeProductInCart(req, res) {
+    try {
+      const user = req.user;
+      const { _id } = res.body;
+
+      const newCart = user.cart.filter(
+        (item) => item.product_id.toString() != _id
+      );
+      user.cart = newCart;
       user.save();
       return res.status(200).json({ message: "OK" });
     } catch (error) {
