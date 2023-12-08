@@ -9,18 +9,34 @@ const { cryptPassword } = require("../util/hashPassword");
 const serverUrl = process.env.SERVER;
 
 class UserController {
-  // [POST] /user/getCart
-  getCart(req, res, next) {
-    
-  }
-  // [PUT] /user/upadte-location
-  updataLocation(req, res, next) {
-   
+  // [PUT] /user/upadte-info
+  updateUser(req, res) {
+    try {
+      const user = req.user;
+      const { location, avatar, phone, username } = req.body;
+      if (location) {
+        user.location = location;
+      }
+      if (avatar) {
+        user.avatar = avatar;
+      }
+
+      if (phone) {
+        user.phone = phone;
+      }
+      if (username) {
+        user.username = username;
+      }
+      user.save();
+
+      return res.status(200).json({ message: "OK", data: user });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "error" });
+    }
   }
   // [GET] /user/package
-  getPackage(req, res, next) {
-   
-  }
+  getPackage(req, res, next) {}
   async getMe(req, res) {
     return res.status(201).json(req.user);
   }
