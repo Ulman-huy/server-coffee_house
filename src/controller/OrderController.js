@@ -20,7 +20,7 @@ class OrderController {
   // [POST] /new-package
   newPackage(req, res) {
     try {
-      const newPackage = new Package({ ...res.body });
+      const newPackage = new Package({ ...req.body });
       if (newPackage) {
         return res.status(201).json(newPackage);
       }

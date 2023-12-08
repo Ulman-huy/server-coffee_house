@@ -94,7 +94,7 @@ class ProductController {
           message: "Vui lòng nhập đầy đủ thông tin!",
         });
       }
-      const product = await Product.findByIdAndUpdate({ _id }, { ...res.body });
+      const product = await Product.findByIdAndUpdate({ _id }, { ...req.body });
       product.save();
       return res.status(201).json({ message: "OK" });
     } catch (err) {
@@ -222,7 +222,7 @@ class ProductController {
   async likeProduct(req, res) {
     try {
       const user = req.user;
-      const { _id, type } = res.body;
+      const { _id, type } = req.body;
 
       if (type == "LIKE") {
         user.like.push(_id);
@@ -241,7 +241,7 @@ class ProductController {
   async removeProductInCart(req, res) {
     try {
       const user = req.user;
-      const _id = res.params._id;
+      const { _id } = req.params;
 
       const newCart = user.cart.filter(
         (item) => item.product_id.toString() != _id
