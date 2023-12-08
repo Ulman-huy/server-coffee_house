@@ -196,7 +196,7 @@ class ProductController {
         const product = await Product.findById({ _id: element._id }).select(
           "-description -info"
         );
-        return product;
+        return { ...product, quantity: element.quantity };
       });
 
       const products = await Promise.all(productPromises);
