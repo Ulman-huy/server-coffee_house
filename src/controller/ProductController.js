@@ -241,7 +241,7 @@ class ProductController {
   async removeProductInCart(req, res) {
     try {
       const user = req.user;
-      const { _id } = res.body;
+      const _id = res.params._id;
 
       const newCart = user.cart.filter(
         (item) => item.product_id.toString() != _id
