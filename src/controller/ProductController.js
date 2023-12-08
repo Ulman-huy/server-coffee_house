@@ -193,14 +193,20 @@ class ProductController {
       const user = req.user;
 
       const productPromises = user.cart.map(async (element) => {
-        const product = await Product.findById({ _id: element._id }).select(
-          "-description -info"
-        );
-        return { ...product, quantity: element.quantity };
+        const product = await Product.findById({ _id: element.product_id })
+          .select("-description -info")
+          .exec();
+        if (!product) {
+          return product;
+        }
+        const productWithQuantity = {
+          ...product.toObject(),
+          quantity: element.quantity,
+        };
+        return productWithQuantity;
       });
 
       const products = await Promise.all(productPromises);
-
       return res.status(200).json(products);
     } catch (error) {
       console.log(error);
