@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
     password: { type: String, require: true },
     cart: [
       {
-        product_id: { type: ObjectId },
+        product_id: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
         quantity: { type: Number, default: 1 },
       },
     ],
@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema(
     location: { type: String, default: "" },
     verifyToken: { type: String },
     verify: { type: Boolean },
-    like: { type: Array, default: [] },
+    like: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
     forgotToken: {
       type: String,
     },

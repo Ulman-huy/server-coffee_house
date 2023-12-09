@@ -8,7 +8,15 @@ const packageSchema = new mongoose.Schema(
     location: { type: String },
     message: { type: String },
     status: { type: String, default: "PENDING" },
-    cart: [],
+    cart: [
+      {
+        product_id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "product",
+        },
+        quantity: Number,
+      },
+    ],
   },
   {
     timestamps: true,

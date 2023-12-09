@@ -10,7 +10,10 @@ class OrderController {
   async getAllPackageByUserId(req, res) {
     try {
       const user = req.user;
-      const packages = await Package.find({ userId: user._id });
+      const packages = await Package.find({ userId: user._id }).populate(
+        "cart.product_id"
+      );
+
       return res.status(200).json(packages);
     } catch (error) {
       console.log(error);
