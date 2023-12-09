@@ -1,11 +1,28 @@
-const ObjectId = require("mongoose").Types.ObjectId;
 const { Package } = require("../models/package");
-const { Product } = require("../models/product");
-const { multipleMongooseToObject } = require("../util/mongoose");
-const serverUrl = process.env.SERVER;
 
 class OrderController {
-  getAllPackage(req, res) {}
+  async getAllPackage(req, res) {
+    try {
+      const { page = 1, limit = 10 } = req.query;
+
+      const packages = await Package.find({})
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .exec();
+      const total = await Package.countDocuments({}).exec();
+
+      return res.status(200).json({
+        data: packages,
+        limit,
+        page,
+        total,
+        totalPage: Math.ceil(total / limit),
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "error" });
+    }
+  }
 
   async getAllPackageByUserId(req, res) {
     try {
@@ -41,12 +58,14 @@ class OrderController {
     try {
       const user = req.user;
       const { _id } = req.params;
-      const pkg = await Package.find({ _id, userId: user._id }).populate("cart.product_id");
+      const pkg = await Package.find({ _id, userId: user._id }).populate(
+        "cart.product_id"
+      );
 
       if (pkg) {
         return res.status(200).json(pkg);
       }
-      return res.status(404).json({message: "Không tìm thấy đơn hàng!"});
+      return res.status(404).json({ message: "Không tìm thấy đơn hàng!" });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: "Không tìm thấy đơn hàng!" });

@@ -83,6 +83,28 @@ class UserController {
       return res.status(500).json({ message: "error" });
     }
   }
+  async getAllUser(req, res) {
+    try {
+      const { page = 1, limit = 10 } = req.query;
+
+      const users = await User.find({})
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .exec();
+      const total = await User.countDocuments({}).exec();
+
+      return res.status(200).json({
+        data: users,
+        limit,
+        page,
+        total,
+        totalPage: Math.ceil(total / limit),
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "error" });
+    }
+  }
 }
 
 module.exports = new UserController();
