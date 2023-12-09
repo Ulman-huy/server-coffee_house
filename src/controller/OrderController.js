@@ -24,6 +24,21 @@ class OrderController {
     }
   }
 
+  async getPackageDetailAdmin(req, res) {
+    try {
+      const { _id } = req.params;
+      const pkg = await Package.find({ _id }).populate("cart.product_id");
+
+      if (pkg) {
+        return res.status(200).json(pkg);
+      }
+      return res.status(404).json({ message: "Không tìm thấy đơn hàng!" });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Không tìm thấy đơn hàng!" });
+    }
+  }
+
   async getAllPackageByUserId(req, res) {
     try {
       const user = req.user;
