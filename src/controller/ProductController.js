@@ -258,9 +258,7 @@ class ProductController {
     try {
       const user = req.user;
       const productPromises = user.like.map(async (element) => {
-        return await Product.findById({ _id: element })
-          .select("-description -info")
-          .exec();
+        return await Product.findById({ _id: element }).exec();
       });
       const products = await Promise.all(productPromises);
       return res.status(200).json(products);
