@@ -254,6 +254,21 @@ class ProductController {
       return res.status(500).json({ message: "error" });
     }
   }
+  async getLikeProduct(req, res) {
+    try {
+      const user = req.user;
+      const productPromises = user.like.map(async (element) => {
+        return await Product.findById({ _id: element })
+          .select("-description -info")
+          .exec();
+      });
+      const products = await Promise.all(productPromises);
+      return res.status(200).json(products);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "error" });
+    }
+  }
 }
 
 module.exports = new ProductController();
