@@ -41,7 +41,7 @@ class OrderController {
     try {
       const user = req.user;
       const { _id } = req.params;
-      const pkg = await Package.find({ _id, userId: user._id });
+      const pkg = await Package.find({ _id, userId: user._id }).populate("cart.product_id");
 
       if (pkg) {
         return res.status(200).json(pkg);
