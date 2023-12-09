@@ -228,7 +228,7 @@ class ProductController {
         user.like.push(_id);
       }
       if (type == "DISLIKE") {
-        user.like.filter((item) => item != _id);
+        user.like.filter((item) => item.toString() != _id);
       }
       user.save();
       return res.status(200).json({ message: "OK" });
