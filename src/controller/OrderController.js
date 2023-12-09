@@ -37,7 +37,21 @@ class OrderController {
       return res.status(500).json({ message: "error" });
     }
   }
-  getPackageDetail(req, res, next) {}
+  async getPackageDetail(req, res) {
+    try {
+      const user = req.user;
+      const { _id } = req.params;
+      const pkg = await Package.find({ _id, userId: user._id });
+
+      if (pkg) {
+        return res.status(200).json(pkg);
+      }
+      return res.status(404).json({message: "Không tìm thấy đơn hàng!"});
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Không tìm thấy đơn hàng!" });
+    }
+  }
 }
 
 module.exports = new OrderController();
